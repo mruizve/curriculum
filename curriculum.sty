@@ -135,7 +135,7 @@
         {%
           \ifcsname#1@\arabic{show#1}\endcsname%
             \expandafter\ifnum\csname theshow#1\endcsname>0%
-              \\[1.25ex]% (the first element is not prefixed)
+              \\[1.5ex]% (the first element is not prefixed)
             \fi%
             \csname @#1\endcsname{\csname#1@\arabic{show#1}\endcsname}%
           \fi%
@@ -176,6 +176,7 @@
 \CVfield{citizenship}
 
 % define header of the curriculum vitae
+\newif\ifpublication\publicationfalse
 \def\margins#1#2{\list{}{\rightmargin#2\leftmargin#1}\item[]}
 \let\endchangemargin=\endlist
 \def\makecontact%
@@ -183,17 +184,22 @@
   \newpage%
   {%
     \centering%
-    {\huge\myname~\mysurname}\\[10pt]%
-    \begin{tabular}{@{}c@{}}%
-      \myaddress. \\%
-      \myphone~/~\myemail%
-    \end{tabular}%
+    {\huge\myname~\mysurname}\\[\ifpublication2pt\else10pt\fi]%
+    \ifpublication
+      contact email: \myemail\\[10pt]
+      Curriculum vitae for publication, pursuant to Article 26 of D.Lgs 33/2013\\
+    \else
+      \begin{tabular}{@{}c@{}}%
+        \myaddress. \\%
+        \myphone~/~\myemail%
+      \end{tabular}%
+    \fi
     \par%
   }%
 }
 
 %-----------------------------------------------------------------------
-% Summary (organized inside a list)
+% summary (organized inside a list)
 %-----------------------------------------------------------------------
 \makeatletter
   \def\@summary#1{#1}
@@ -206,8 +212,16 @@
 \makeatletter
   \def\@work#1{\expandafter\@work@a#1}
   \def\@work@a#1{\expandafter\@work@b#1}
-  \def\@work@b#1;#2;#3;{#1 & {\em\ignorespaces#2}\newline{\ignorespaces#3}\newline\ignorespaces}
-  \CVtable{work}{Experience}{>{\raggedleft\arraybackslash}p{0.15\linewidth}@{\hspace{2ex}}p{0.85\linewidth}}
+  \def\@work@b#1;#2;#3;#4;%
+  {%
+    {\color{darkgray}\small#1}\\%
+    {\large\ignorespaces#2}\\[5pt]%
+    \parbox{\linewidth}%
+    {%
+      \ignorespaces#3.\\\ignorespaces#4.\\%
+    }%
+  }
+  \CVtable{work}{Experience}{p{\linewidth}}
 \makeatother
 
 %-----------------------------------------------------------------------
@@ -215,7 +229,7 @@
 %-----------------------------------------------------------------------
 \makeatletter
   \let\@study\@work
-  \CVtable{study}{Education}{>{\raggedleft\arraybackslash}p{0.15\linewidth}@{\hspace{2ex}}p{0.85\linewidth}}
+  \CVtable{study}{Education}{p{\linewidth}}
 \makeatother
 
 %-----------------------------------------------------------------------
@@ -243,61 +257,34 @@
 \makeatother
 
 %-----------------------------------------------------------------------
-% teaching experience (organized inside a table)
+% teaching experience (organized inside a list)
 %-----------------------------------------------------------------------
 \makeatletter
   \def\@teaching#1{\expandafter\@teaching@a#1}
   \def\@teaching@a#1{\expandafter\@teaching@b#1}
-  \def\@teaching@b#1;#2;#3;#4;{{\em\ignorespaces#2}\newline\ignorespaces#3, #1.\newline\ignorespaces#4}
+  \def\@teaching@b#1;#2;#3;#4;{{\em\ignorespaces#2}\newline\ignorespaces#3, #1.\ifx\relax#4\relax\else\newline\ignorespaces#4.\fi}
   \CVlist{teaching}{Teaching experience}
 \makeatother
 
 %-----------------------------------------------------------------------
-% publications (organized inside a list)
+% publications (organized inside a table)
 %-----------------------------------------------------------------------
 \makeatletter
   \def\@publication#1{\expandafter\@publication@a#1}
   \def\@publication@a#1{\expandafter\@publication@b#1}
-  \def\@publication@b#1;#2;#3;#4;{\labelitemi & #1. "\ignorespaces#2". \ignorespaces#3, \ignorespaces#4.}
+  \def\@publication@b#1;#2;#3;#4;{\labelitemi & #1. ``\ignorespaces#2''. \ignorespaces#3, \ignorespaces#4.}
   \CVtable{publication}{Publications}{p{0.03\linewidth}@{}p{0.97\linewidth}}
 \makeatother
 
 %-----------------------------------------------------------------------
-% patents (organized inside a list)
+% patents (organized inside a table)
 %-----------------------------------------------------------------------
 \makeatletter
   \def\@patent#1{\expandafter\@patent@a#1}
   \def\@patent@a#1{\expandafter\@patent@b#1}
-  \def\@patent@b#1;#2;#3;#4;{\labelitemi & #1. "\ignorespaces#2". \ignorespaces#3, \ignorespaces#4.}
+  \def\@patent@b#1;#2;#3;#4;{\labelitemi & #1. ``\ignorespaces#2''. \ignorespaces#3, \ignorespaces#4.}
   \CVtable{patent}{Patents}{p{0.03\linewidth}@{}p{0.97\linewidth}}
 \makeatother
-
-%\makeatletter
-%  \renewcommand\thebibliography[1]%
-%  {%
-%    \oldthebibliography{#1}%
-%    \setlength{\parskip}{10pt}%
-%    \setlength{\itemindent}{10pt}%
-%  }%
-%
-%  \def\makepublication%
-%  {%
-%    \begingroup%
-%      \raggedright%
-%      \bibliographystyle{plainnat}%
-%      \renewcommand{\section}[2]{}%
-%      \ifnested%
-%        \underline{Publications}:\ %
-%        \renewcommand\@biblabel[1]{\labelitemii}%
-%      \else
-%        \section{\underline{\underline{Publications}}}%
-%        \renewcommand\@biblabel[1]{\textbullet}%
-%      \fi
-%      \nocite{*}%
-%      \bibliography{publications}%
-%    \endgroup%
-%  }%
-%\makeatother
 
 %-----------------------------------------------------------------------
 % research visits (organized inside a list)
@@ -325,4 +312,23 @@
 \makeatletter
   \let\@honour\@teaching
   \CVlist{honour}{Honours and awards}
+\makeatother
+
+%-----------------------------------------------------------------------
+% references (organized inside a table)
+%-----------------------------------------------------------------------
+\makeatletter
+  \def\@reference#1{\expandafter\@reference@a#1}
+  \def\@reference@a#1{\expandafter\@reference@b#1}
+  \def\@reference@b#1;#2;#3;#4;#5;%
+  {%
+    {\Large#1}\\%
+    {\large\ignorespaces#2}\\[5pt]%
+    \begin{tabular}{@{\hspace{2ex}}rl@{}}%
+      address:& \ignorespaces#3.\\%
+        phone:& \ignorespaces#4.\\%
+        email:& \@email{\ignorespaces#5}.%
+    \end{tabular}\\%
+  }
+  \CVtable{reference}{References list}{p{\linewidth}}
 \makeatother
