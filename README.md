@@ -1,4 +1,5 @@
 # curriculum
-A Latex template for creating my curriculum
+A Latex template for handling my curriculum.
 
-Please, be extreamly careful with the semi-colons!!!
+Please, be extremely careful with the semi-colons!!!
+
