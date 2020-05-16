@@ -35,7 +35,7 @@
 \RequirePackage{multicol}
 \RequirePackage{enumitem}
   \setlist{itemsep=0pt, topsep=0pt, partopsep=0pt, leftmargin=*}
-  
+
 \RequirePackage{titlesec}
   \titleformat{\section}{\Large\centering}{}{0em}{}%[\titlerule]
   \titlespacing{\section}{0pt}{2em}{0.8em}
@@ -176,7 +176,7 @@
 \CVfield{citizenship}
 
 % define header of the curriculum vitae
-\newif\ifpublication\publicationfalse
+\newif\ifprivacy\privacyfalse
 \def\margins#1#2{\list{}{\rightmargin#2\leftmargin#1}\item[]}
 \let\endchangemargin=\endlist
 \def\makecontact%
@@ -184,8 +184,8 @@
   \newpage%
   {%
     \centering%
-    {\huge\myname~\mysurname}\\[\ifpublication2pt\else10pt\fi]%
-    \ifpublication
+    {\huge\myname~\mysurname}\\[\ifprivacy2pt\else10pt\fi]%
+    \ifprivacy
       contact email: \myemail\\[10pt]
       Curriculum vitae for publication, pursuant to Article 26 of D.Lgs 33/2013\\
     \else
@@ -271,10 +271,12 @@
 %-----------------------------------------------------------------------
 \makeatletter
   \def\@publication#1{\expandafter\@publication@a#1}
+  \def\@shittypublication#1{\expandafter\@publication@a#1}
   \def\@publication@a#1{\expandafter\@publication@b#1}
   \def\@publication@b#1;#2;#3;#4;{\labelitemi & #1. ``\ignorespaces#2''. \ignorespaces#3, \ignorespaces#4.}
   \CVtable{publication}{Publications}{p{0.03\linewidth}@{}p{0.97\linewidth}}
 \makeatother
+\let\addshitttypublication\relax
 
 %-----------------------------------------------------------------------
 % patents (organized inside a table)
