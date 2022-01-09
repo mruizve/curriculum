@@ -290,9 +290,7 @@
 % teaching experience (organized inside a list)
 %-----------------------------------------------------------------------
 \makeatletter
-  \def\@teaching#1{\expandafter\@teaching@a#1}
-  \def\@teaching@a#1{\expandafter\@teaching@b#1}
-  \def\@teaching@b#1;#2;#3;#4;{{\em\ignorespaces#2}\newline\ignorespaces#3, #1.\ifx\relax#4\relax\else\newline\ignorespaces#4.\fi}
+  \let\@teaching\@work
   \CVlist{teaching}{Teaching experience}
 \makeatother
 
