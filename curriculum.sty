@@ -58,6 +58,16 @@
 \RequirePackage{mathtools}
 
 %-----------------------------------------------------------------------
+% external links
+%-----------------------------------------------------------------------
+\def\codelink#1{\href{#1}{\![code]\!}}%
+\def\pdflink#1{\href{#1}{\![pdf]\!}}%
+\def\linkedinurl#1%
+{%
+  \raisebox{-0.125cm}{\includegraphics[height=0.5cm]{./media/linkedin}}~\href{https://it.linkedin.com/in/#1}{#1}%
+}%
+
+%-----------------------------------------------------------------------
 % base commands for creating the curriculum vitae
 %-----------------------------------------------------------------------
 \makeatletter
@@ -169,8 +179,10 @@
 % define personal information fields (using \CVfield)
 \CVfield{name}
 \CVfield{surname}
+\CVfield{professionaltitle}
 \CVfield{email}
 \CVfield{phone}
+\CVfield{linkedin}
 \CVfield{photo}
 \CVfield{address}
 \CVfield{birthdate}
