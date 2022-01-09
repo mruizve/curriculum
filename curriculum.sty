@@ -107,20 +107,25 @@
     \expandafter\def\csname make#1\endcsname%
     {%
       \ifnested%
-        \underline{#2}:\ %
+        \underline{\underline{\Large{#2}}}%
+        \begin{itemize}[label=, after=\vspace{1ex}, rightmargin=0cm]%
       \else
         \section{\underline{\underline{#2}}}%
+        \begin{itemize}[after=\vspace{1ex}, rightmargin=0cm]%
       \fi
-      \begin{itemize}%
         \forloop{show#1}{0}{\value{show#1}<\value{add#1}}%
         {%
-          \begingroup%
-            \nestedtrue%
-            \setlist{after=\vspace{1.0ex}, rightmargin=1.5cm}
-            \ifcsname#1@\arabic{show#1}\endcsname%
+          \ifnested%
+            \vspace{1.5ex}%
+          \else%
+            \vspace{1ex}%
+          \fi%
+          \ifcsname#1@\arabic{show#1}\endcsname%
+            \begingroup%
+              \nestedtrue%
               \item {\csname @#1\endcsname{\csname#1@\arabic{show#1}\endcsname}}%
-            \fi%
-          \endgroup%
+            \endgroup%
+          \fi%
         }%
       \end{itemize}%
     }%
