@@ -160,9 +160,10 @@
 %-----------------------------------------------------------------------
 % name and contact information
 %-----------------------------------------------------------------------
+\def\Email#1{\href{mailto:#1}{#1}}
 \makeatletter
   % email format
-  \def\@email#1{\href{mailto:#1}{#1}}
+  \def\@email#1{\Email{#1}}
 \makeatother
 
 % define personal information fields (using \CVfield)
