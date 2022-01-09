@@ -64,6 +64,11 @@
   \newif\ifnested\nestedfalse%
   \def\undonewline{\unpenalty\unskip\unpenalty}%
 
+  % how to use \CVfield
+  % 1. optional: deinfe a formatting command \@name{...}
+  % 2. define the field \CVfield{name}
+  % 3. use \name{...} to store data
+  % 4. use \myname to show the stored information inside the document
   \def\CVfield#1%
   {%
     \expandafter\def\csname#1\endcsname##1%
@@ -78,12 +83,12 @@
       }%
     }%
   }
-  % how to use \CVfield
-  % 1. optional: deinfe a formatting command \@name{...}
-  % 2. define the field \CVfield{name}
-  % 3. use \name{...} to store data
-  % 4. use \myname to show the stored information inside the document
 
+  % how to use \CVlist:
+  % 1. define the core functionality through \def\@name#1{...}
+  % 2. \CVlist{name}{title}
+  % 3. use \addname{...} to add an element to the list
+  % 4. use \makename to place the formated list on the document.
   \def\CVlist#1#2%
   {%
     \newcounter{add#1}%
@@ -115,12 +120,12 @@
       \stepcounter{add#1}%
     }%
   }
-  % how to use \CVlist:
+
+  % how to use \CVtable:
   % 1. define the core functionality through \def\@name#1{...}
-  % 2. \CVlist{name}{title}
+  % 2. \CVtable{name}{title}{table format}
   % 3. use \addname{...} to add an element to the list
   % 4. use \makename to place the formated list on the document.
-
   \def\CVtable#1#2#3%
   {%
     \newcounter{add#1}%
@@ -150,11 +155,6 @@
       \stepcounter{add#1}%
     }%
   }
-  % how to use \CVtable:
-  % 1. define the core functionality through \def\@name#1{...}
-  % 2. \CVtable{name}{title}{table format}
-  % 3. use \addname{...} to add an element to the list
-  % 4. use \makename to place the formated list on the document.
 \makeatother
 
 %-----------------------------------------------------------------------
