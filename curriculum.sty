@@ -299,12 +299,12 @@
 %-----------------------------------------------------------------------
 \makeatletter
   \def\@publication#1{\expandafter\@publication@a#1}
-  \def\@shittypublication#1{\expandafter\@publication@a#1}
   \def\@publication@a#1{\expandafter\@publication@b#1}
-  \def\@publication@b#1;#2;#3;#4;{\labelitemi & #1. ``\ignorespaces#2''. \ignorespaces#3, \ignorespaces#4.}
+  \def\@publication@b#1;#2;#3;#4;{\labelitemi & #1. ``\ignorespaces#2''. \ignorespaces#3, \ignorespaces#4.\\[-1em]}
   \CVtable{publication}{Publications}{p{0.03\linewidth}@{}p{0.97\linewidth}}
 \makeatother
-\let\addshitttypublication\relax
+\def\addshittypublication#1{}
+
 
 %-----------------------------------------------------------------------
 % patents (organized inside a table)
