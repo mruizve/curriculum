@@ -235,12 +235,13 @@
   \def\@work@a#1{\expandafter\@work@b#1}
   \def\@work@b#1;#2;#3;#4;%
   {%
-    {\color{darkgray}\small#1}\\%
-    {\large\ignorespaces#2}\\[5pt]%
     \parbox{\linewidth}%
     {%
-      \ignorespaces#3.\\\ignorespaces#4.\\%
-    }%
+      {\color{darkgray}\small#1}\\[2pt]%
+      {\ignorespaces#3}\\[2pt]%
+      {\bf\large\ignorespaces#2}\\[2pt]%
+      \ignorespaces#4%
+    }\\%
   }
   \CVtable{work}{Experience}{p{\linewidth}}
 \makeatother
