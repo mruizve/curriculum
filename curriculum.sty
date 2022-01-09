@@ -58,6 +58,21 @@
 \RequirePackage{mathtools}
 
 %-----------------------------------------------------------------------
+% aligned item
+%-----------------------------------------------------------------------
+%~ \def\aligneditem#1#2%
+%~ {%
+  %~ \begingroup%
+    %~ \newsavebox{\preamblebox}%
+    %~ \newlength{\preamblewidth}%
+    %~ \sbox{\preamblebox}{#1: }%
+    %~ \preamblewidth=\wd\preamblebox%
+    %~ \usebox{\preamblebox}%
+    %~ \parbox[t]{\dimexpr\linewidth-\preamblewidth-2\fboxsep}{#2}%
+  %~ \endgroup%
+%~ }
+
+%-----------------------------------------------------------------------
 % external links
 %-----------------------------------------------------------------------
 \def\codelink#1{\href{#1}{\![code]\!}}%
